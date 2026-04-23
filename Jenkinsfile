@@ -13,6 +13,7 @@ pipeline {
             steps {
                 bat '''
                 if exist report rmdir /s /q report
+                if exist results.jtl del results.jtl
                 jmeter -n -t httpbin_test_plan.jmx -l results.jtl -e -o report
                 '''
             }

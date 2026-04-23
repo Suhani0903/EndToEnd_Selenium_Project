@@ -27,6 +27,9 @@ pipeline {
         stage('Publish JMeter Report') {
             steps {
                 publishHTML([
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
                     reportDir: 'report',
                     reportFiles: 'index.html',
                     reportName: 'JMeter Report'

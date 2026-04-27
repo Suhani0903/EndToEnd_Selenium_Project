@@ -5,9 +5,11 @@ import io.cucumber.java.en.*;
 import pages.LoginPage;
 import utils.ExcelUtil;
 import org.testng.Assert;
+import pages.EmployeePage;
 
 public class LoginSteps {
     LoginPage loginPage;
+    EmployeePage employeePage;
 
     @Given("user opens browser")
     public void openBrowser() {
@@ -29,5 +31,22 @@ public class LoginSteps {
     @Then("login should be successful")
     public void verifyLogin() {
         Assert.assertTrue(loginPage.isLoginSuccessful(), "Login failed!");
+    }
+
+    @When("user navigates to PIM module")
+    public void navigateToPIM() {
+        employeePage = new EmployeePage(BaseTest.getDriver());
+        employeePage.navigateToPIM();
+    }
+
+    @When("user adds a new employee")
+    public void addEmployee() {
+        String uniqueName = "Sakshi" + System.currentTimeMillis();
+        employeePage.addEmployee(uniqueName, "Patel");
+    }
+
+    @Then("employee should be added successfully")
+    public void verifyEmployeeAdded() {
+        Assert.assertTrue(employeePage.isEmployeeAdded(), "Employee not added!");
     }
 }
